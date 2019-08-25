@@ -48,6 +48,8 @@ func thatTheScorekeeperServiceIsRunning() error {
 	if err != nil {
 		return err
 	}
-	defer conn.Close()
+	if err := conn.Close(); err != nil {
+		return err
+	}
 	return nil
 }
