@@ -59,15 +59,16 @@ func thatTheScorekeeperServiceIsRunning() error {
 }
 
 func sendDataToServer(url string, data []byte) ([]byte, error) {
-
 	b := bytes.NewReader(data)
 	res, err := http.Post(url, "application/json", b)
 	if err != nil {
 		return nil, err
 	}
-	defer res.Body.Close()
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
+		return nil, err
+	}
+	if err := res.Body.Close(); err != nil {
 		return nil, err
 	}
 	return body, nil
@@ -78,10 +79,13 @@ func getDataFromServer(url string) ([]byte, error) {
 	if err != nil {
 		return nil, errors.Wrapf(err, "pinging %s", url)
 	}
-	defer res.Body.Close()
+
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return nil, errors.Wrap(err, "reading response body")
+	}
+	if err := res.Body.Close(); err != nil {
+		return nil, err
 	}
 	return body, nil
 }
