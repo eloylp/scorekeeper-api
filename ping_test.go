@@ -3,9 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/DATA-DOG/godog"
+	"github.com/eloylp/scorekeeper-api/webserver"
 )
-
-const PingEndpoint = "/ping"
 
 func FeaturePingContext(s *godog.Suite) {
 	s.Step(`^that the scorekeeper service is running$`, thatTheScorekeeperServiceIsRunning)
@@ -13,7 +12,7 @@ func FeaturePingContext(s *godog.Suite) {
 }
 
 func iCanPingTheScorekeeperService() error {
-	url := url(PingEndpoint)
+	url := url(webserver.PingEndpoint)
 	body, err := dataFromServer(url)
 	if err != nil {
 		return err

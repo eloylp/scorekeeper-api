@@ -11,6 +11,11 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+const (
+	PingEndpoint   = "/ping"
+	PointsEndpoint = "/points"
+)
+
 type result struct {
 	Success bool   `json:"success"`
 	Message string `json:"message"`
@@ -22,11 +27,9 @@ func NewRunner() rununtil.RunnerFunc {
 
 		s := scorekeeper.NewScorer()
 		r := chi.NewRouter()
-		r.Get("/ping", pingHandler)
-		r.Post("/points", pointsHandler(&s))
-
+		r.Get(PingEndpoint, pingHandler)
+		r.Post(PointsEndpoint, pointsHandler(&s))
 		httpServer := http.Server{Addr: ":8080", Handler: r}
-
 		go runHTTPServer(&httpServer)
 
 		return func() {
