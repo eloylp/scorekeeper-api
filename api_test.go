@@ -12,6 +12,7 @@ import (
 
 // This is just to run godog when running go test
 func TestMain(m *testing.M) {
+	// Register here all the feature contexts. Mind that callbacks will be applied to all contexts.
 	status := godog.RunWithOptions("godog", func(s *godog.Suite) {
 		httpServerContext(s)
 		FeatureScoreKeepingContext(s)
