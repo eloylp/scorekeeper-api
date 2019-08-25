@@ -11,7 +11,7 @@ func FeaturePingContext(s *godog.Suite) {
 }
 
 func iCanPingTheScorekeeperService() error {
-	url := "http://localhost:8080/ping"
+	url := url("/ping")
 	body, err := getDataFromServer(url)
 	if err != nil {
 		return err

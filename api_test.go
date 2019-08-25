@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/DATA-DOG/godog"
 	"github.com/eloylp/scorekeeper-api/webserver"
 	"github.com/mec07/rununtil"
@@ -87,4 +88,8 @@ func getDataFromServer(url string) ([]byte, error) {
 		return nil, err
 	}
 	return body, nil
+}
+
+func url(path string) string {
+	return fmt.Sprintf("http://localhost:8080%s", path)
 }
