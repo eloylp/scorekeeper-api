@@ -1,11 +1,8 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"github.com/DATA-DOG/godog"
-	"io/ioutil"
-	"net/http"
 )
 
 func FeatureScoreKeepingContext(s *godog.Suite) {
@@ -18,13 +15,7 @@ func FeatureScoreKeepingContext(s *godog.Suite) {
 func iCanAddSomePoints() error {
 	url := "http://localhost:8080/points"
 	json := []byte(`{"user": "Bob", "points": 5, "opType": "ADD"}`)
-	b := bytes.NewReader(json)
-	res, err := http.Post(url, "application/json", b)
-	if err != nil {
-		return err
-	}
-	defer res.Body.Close()
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := sendDataToServer(url, json)
 	if err != nil {
 		return err
 	}
@@ -38,13 +29,7 @@ func iCanAddSomePoints() error {
 func iCanSubsSomePoints() error {
 	url := "http://localhost:8080/points"
 	json := []byte(`{"user": "Bob", "points": 5, "opType": "SUBS"}`)
-	b := bytes.NewReader(json)
-	res, err := http.Post(url, "application/json", b)
-	if err != nil {
-		return err
-	}
-	defer res.Body.Close()
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := sendDataToServer(url, json)
 	if err != nil {
 		return err
 	}
@@ -58,13 +43,7 @@ func iCanSubsSomePoints() error {
 func iCantMultiplyPoints() error {
 	url := "http://localhost:8080/points"
 	json := []byte(`{"user": "Bob", "points": 5, "opType": "MULTIPLY"}`)
-	b := bytes.NewReader(json)
-	res, err := http.Post(url, "application/json", b)
-	if err != nil {
-		return err
-	}
-	defer res.Body.Close()
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := sendDataToServer(url, json)
 	if err != nil {
 		return err
 	}

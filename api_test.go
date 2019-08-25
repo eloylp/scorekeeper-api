@@ -1,10 +1,14 @@
 package main
 
 import (
+	"bytes"
 	"github.com/DATA-DOG/godog"
 	"github.com/eloylp/scorekeeper-api/webserver"
 	"github.com/mec07/rununtil"
+	"github.com/pkg/errors"
+	"io/ioutil"
 	"net"
+	"net/http"
 	"os"
 	"testing"
 	"time"
@@ -52,4 +56,32 @@ func thatTheScorekeeperServiceIsRunning() error {
 		return err
 	}
 	return nil
+}
+
+func sendDataToServer(url string, data []byte) ([]byte, error) {
+
+	b := bytes.NewReader(data)
+	res, err := http.Post(url, "application/json", b)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
+}
+
+func getDataFromServer(url string) ([]byte, error) {
+	res, err := http.Get(url)
+	if err != nil {
+		return nil, errors.Wrapf(err, "pinging %s", url)
+	}
+	defer res.Body.Close()
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return nil, errors.Wrap(err, "reading response body")
+	}
+	return body, nil
 }
