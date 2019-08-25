@@ -4,11 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/eloylp/scorekeeper"
-	"net/http"
-
 	"github.com/go-chi/chi"
 	"github.com/mec07/rununtil"
 	"github.com/rs/zerolog/log"
+	"net/http"
 )
 
 const (
