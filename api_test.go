@@ -77,7 +77,7 @@ func sendDataToServer(url string, data []byte) ([]byte, error) {
 func getDataFromServer(url string) ([]byte, error) {
 	res, err := http.Get(url)
 	if err != nil {
-		return nil, errors.Wrapf(err, "pinging %s", url)
+		return nil, errors.Wrapf(err, "getting %s", url)
 	}
 
 	body, err := ioutil.ReadAll(res.Body)
