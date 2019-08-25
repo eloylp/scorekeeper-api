@@ -2,8 +2,9 @@ package main
 
 import (
 	"bytes"
-	"context"
 	"fmt"
+	"github.com/mec07/rununtil"
+	"github.com/mec07/scorekeeper-api/webserver"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -11,14 +12,15 @@ import (
 	"time"
 
 	"github.com/DATA-DOG/godog"
-	"github.com/mec07/rununtil"
 	"github.com/pkg/errors"
 )
 
 // This is just to run godog when running go test
 func TestMain(m *testing.M) {
 	status := godog.RunWithOptions("godog", func(s *godog.Suite) {
-		FeatureContext(s)
+		httpServerContext(s)
+		FeatureScoreKeepingContext(s)
+		FeaturePingContext(s)
 	}, godog.Options{
 		Format:    "progress",
 		Paths:     []string{"features"},
@@ -29,6 +31,19 @@ func TestMain(m *testing.M) {
 		status = st
 	}
 	os.Exit(status)
+}
+
+func httpServerContext(s *godog.Suite) {
+	// Before & After steps
+	var serverRunner rununtil.RunnerFunc
+	var serverShutdown rununtil.ShutdownFunc
+	s.BeforeScenario(func(interface{}) {
+		serverRunner = webserver.NewRunner()
+		serverShutdown = serverRunner()
+	})
+	s.AfterScenario(func(interface{}, error) {
+		serverShutdown()
+	})
 }
 
 func thatTheScorekeeperServiceIsRunning() error {
@@ -71,7 +86,6 @@ func iCanAddSomePoints() error {
 	}
 	return nil
 }
-
 func iCanSubsSomePoints() error {
 	url := "http://localhost:8080/points"
 	json := []byte(`{"user": "Bob", "points": 5, "opType": "SUBS"}`)
@@ -110,25 +124,13 @@ func iCantMultiplyPoints() error {
 	}
 	return nil
 }
-func FeatureContext(s *godog.Suite) {
-	// Before & After steps
-	var killServer context.CancelFunc
-	s.BeforeScenario(func(interface{}) {
-		killServer = rununtil.Killed(main)
-	})
-
-	s.AfterScenario(func(interface{}, error) {
-		killServer()
-		time.Sleep(time.Second * 1)
-	})
-
+func FeaturePingContext(s *godog.Suite) {
 	// Given steps
 	s.Step(`^that the scorekeeper service is running$`, thatTheScorekeeperServiceIsRunning)
 	s.Step(`^I can ping the scorekeeper service$`, iCanPingTheScorekeeperService)
+}
 
-	// When steps
-
-	// Then steps
+func FeatureScoreKeepingContext(s *godog.Suite) {
 	s.Step(`^that the scorekeeper service is running$`, thatTheScorekeeperServiceIsRunning)
 	s.Step(`^I can add some points$`, iCanAddSomePoints)
 	s.Step(`^I can subs some points$`, iCanSubsSomePoints)
