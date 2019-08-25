@@ -2,6 +2,8 @@ github.com/DATA-DOG/godog v0.7.13 h1:JmgpKcra7Vf3yzI9vPsWyoQRx13tyKziHtXWDCUUgok
 github.com/DATA-DOG/godog v0.7.13/go.mod h1:z2OZ6a3X0/YAKVqLfVzYBwFt3j6uSt3Xrqa7XTtcQE0=
 github.com/coreos/go-systemd v0.0.0-20190321100706-95778dfbb74e/go.mod h1:F5haX7vjVVG0kc13fIWeqUViNPyEJxv/OmvnBo0Yme4=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/eloylp/scorekeeper v0.1.1 h1:NDFh/L1VaPjd4RqtaFGgo5O5xKMd+FiV4l86aKFp6eE=
+github.com/eloylp/scorekeeper v0.1.1/go.mod h1:2+v45EplNPzu/v/DU8nciO3fl6/7av0mr4PoltioC8k=
 github.com/go-chi/chi v4.0.2+incompatible h1:maB6vn6FqCxrpz4FqWdh4+lwpyZIQS7YEAUcHlgXVRs=
 github.com/go-chi/chi v4.0.2+incompatible/go.mod h1:eB3wogJHnLi3x/kFX2A+IbTBlXxmMeXJVKy9tTv1XzQ=
 github.com/mec07/rununtil v0.1.0 h1:ROXp5kqQiz4YeMrol5QA0WmCsy9lsVH0z69wKaLmNRI=

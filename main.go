@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/eloylp/scorekeeper-api/webserver"
 	"github.com/mec07/rununtil"
-	"github.com/mec07/scorekeeper-api/webserver"
 )
 
 func main() {
