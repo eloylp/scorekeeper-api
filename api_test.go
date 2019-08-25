@@ -79,7 +79,6 @@ func getDataFromServer(url string) ([]byte, error) {
 	if err != nil {
 		return nil, errors.Wrapf(err, "getting %s", url)
 	}
-
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return nil, errors.Wrap(err, "reading response body")
