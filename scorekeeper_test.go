@@ -15,7 +15,7 @@ func FeatureScoreKeepingContext(s *godog.Suite) {
 func iCanAddSomePoints() error {
 	url := url("/points")
 	json := []byte(`{"user": "Bob", "points": 5, "opType": "ADD"}`)
-	body, err := sendDataToServer(url, json)
+	body, err := dataToServer(url, json)
 	if err != nil {
 		return err
 	}
@@ -29,7 +29,7 @@ func iCanAddSomePoints() error {
 func iCanSubsSomePoints() error {
 	url := url("/points")
 	json := []byte(`{"user": "Bob", "points": 5, "opType": "SUBS"}`)
-	body, err := sendDataToServer(url, json)
+	body, err := dataToServer(url, json)
 	if err != nil {
 		return err
 	}
@@ -43,7 +43,7 @@ func iCanSubsSomePoints() error {
 func iCantMultiplyPoints() error {
 	url := url("/points")
 	json := []byte(`{"user": "Bob", "points": 5, "opType": "MULTIPLY"}`)
-	body, err := sendDataToServer(url, json)
+	body, err := dataToServer(url, json)
 	if err != nil {
 		return err
 	}

@@ -59,7 +59,7 @@ func thatTheScorekeeperServiceIsRunning() error {
 	return nil
 }
 
-func sendDataToServer(url string, data []byte) ([]byte, error) {
+func dataToServer(url string, data []byte) ([]byte, error) {
 	b := bytes.NewReader(data)
 	res, err := http.Post(url, "application/json", b)
 	if err != nil {
@@ -75,7 +75,7 @@ func sendDataToServer(url string, data []byte) ([]byte, error) {
 	return body, nil
 }
 
-func getDataFromServer(url string) ([]byte, error) {
+func dataFromServer(url string) ([]byte, error) {
 	res, err := http.Get(url)
 	if err != nil {
 		return nil, errors.Wrapf(err, "getting %s", url)
