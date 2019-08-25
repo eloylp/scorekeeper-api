@@ -5,6 +5,8 @@ import (
 	"github.com/DATA-DOG/godog"
 )
 
+const PointsEndpoint = "/points"
+
 func FeatureScoreKeepingContext(s *godog.Suite) {
 	s.Step(`^that the scorekeeper service is running$`, thatTheScorekeeperServiceIsRunning)
 	s.Step(`^I can add some points$`, iCanAddSomePoints)
@@ -13,7 +15,7 @@ func FeatureScoreKeepingContext(s *godog.Suite) {
 }
 
 func iCanAddSomePoints() error {
-	url := url("/points")
+	url := url(PointsEndpoint)
 	json := []byte(`{"user": "Bob", "points": 5, "opType": "ADD"}`)
 	body, err := dataToServer(url, json)
 	if err != nil {
@@ -27,7 +29,7 @@ func iCanAddSomePoints() error {
 }
 
 func iCanSubsSomePoints() error {
-	url := url("/points")
+	url := url(PointsEndpoint)
 	json := []byte(`{"user": "Bob", "points": 5, "opType": "SUBS"}`)
 	body, err := dataToServer(url, json)
 	if err != nil {
@@ -41,7 +43,7 @@ func iCanSubsSomePoints() error {
 }
 
 func iCantMultiplyPoints() error {
-	url := url("/points")
+	url := url(PointsEndpoint)
 	json := []byte(`{"user": "Bob", "points": 5, "opType": "MULTIPLY"}`)
 	body, err := dataToServer(url, json)
 	if err != nil {

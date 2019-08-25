@@ -5,13 +5,15 @@ import (
 	"github.com/DATA-DOG/godog"
 )
 
+const PingEndpoint = "/ping"
+
 func FeaturePingContext(s *godog.Suite) {
 	s.Step(`^that the scorekeeper service is running$`, thatTheScorekeeperServiceIsRunning)
 	s.Step(`^I can ping the scorekeeper service$`, iCanPingTheScorekeeperService)
 }
 
 func iCanPingTheScorekeeperService() error {
-	url := url("/ping")
+	url := url(PingEndpoint)
 	body, err := dataFromServer(url)
 	if err != nil {
 		return err
