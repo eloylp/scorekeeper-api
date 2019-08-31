@@ -27,8 +27,8 @@ func NewRunner() rununtil.RunnerFunc {
 		s := scorekeeper.NewScorer()
 		r := chi.NewRouter()
 		r.Get(PingEndpoint, pingHandler)
-		r.Post(PointsEndpoint, pointsOperationsHandler(&s))
-		r.Get(PointsEndpoint, pointsQueryHandler(&s))
+		r.Post(PointsEndpoint, scoreOperationsHandler(&s))
+		r.Get(PointsEndpoint, scoreQueryHandler(&s))
 		httpServer := http.Server{Addr: ":8080", Handler: r}
 		go runHTTPServer(&httpServer)
 

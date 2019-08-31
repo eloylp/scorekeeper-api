@@ -14,7 +14,7 @@ const (
 	OperationSubs = "SUBS"
 )
 
-func pointsOperationsHandler(scorer *scorekeeper.Scorer) http.HandlerFunc {
+func scoreOperationsHandler(scorer *scorekeeper.Scorer) http.HandlerFunc {
 
 	type operation struct {
 		User   string `json:"user"`
@@ -49,7 +49,7 @@ func pointsOperationsHandler(scorer *scorekeeper.Scorer) http.HandlerFunc {
 	}
 }
 
-func pointsQueryHandler(scorer *scorekeeper.Scorer) http.HandlerFunc {
+func scoreQueryHandler(scorer *scorekeeper.Scorer) http.HandlerFunc {
 
 	type response struct {
 		Success bool `json:"success"`
