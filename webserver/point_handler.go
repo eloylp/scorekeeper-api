@@ -14,7 +14,7 @@ const (
 	OperationSubs = "SUBS"
 )
 
-func pointsHandler(scorer *scorekeeper.Scorer) http.HandlerFunc {
+func pointsOperationsHandler(scorer *scorekeeper.Scorer) http.HandlerFunc {
 
 	type operation struct {
 		User   string `json:"user"`
@@ -46,5 +46,30 @@ func pointsHandler(scorer *scorekeeper.Scorer) http.HandlerFunc {
 			return
 		}
 		writeSuccessResponse(w, fmt.Sprintf("Total points for user %s are now %v", o.User, scorer.Get(o.User)))
+	}
+}
+
+func pointsQueryHandler(scorer *scorekeeper.Scorer) http.HandlerFunc {
+
+	type response struct {
+		Success bool `json:"success"`
+		Points  int  `json:"points"`
+	}
+
+	return func(w http.ResponseWriter, r *http.Request) {
+		query := r.URL.Query()
+		user := query.Get("user")
+		p := scorer.Get(user)
+
+		resp := response{
+			Success: true,
+			Points:  p,
+		}
+		body, err := json.Marshal(&resp)
+		if err != nil {
+			writeBadRequestResponse(w, err)
+			return
+		}
+		writeSuccessBinResponse(w, body)
 	}
 }

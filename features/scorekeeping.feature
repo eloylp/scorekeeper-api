@@ -6,11 +6,11 @@ Feature: Keep players scores
     Background:
         Given that the scorekeeper service is running
 
-    Scenario: Scorekeeper service
-        Then I can add some points
+    Scenario: Scorekeeper service points operations
+        Given I add 5 points to user "Bob"
+        And I add 5 points to user "Bob"
+        And I add 5 points to user "Bob"
+        Then "Bob" has now 15 points
+        And I subs 5 points to user "Bob"
+        Then "Bob" has now 10 points
 
-    Scenario: Scorekeeper service
-        Then I can subs some points
-
-    Scenario: Scorekeeper service
-        Then I cant multiply points

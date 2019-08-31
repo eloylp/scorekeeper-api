@@ -27,7 +27,8 @@ func NewRunner() rununtil.RunnerFunc {
 		s := scorekeeper.NewScorer()
 		r := chi.NewRouter()
 		r.Get(PingEndpoint, pingHandler)
-		r.Post(PointsEndpoint, pointsHandler(&s))
+		r.Post(PointsEndpoint, pointsOperationsHandler(&s))
+		r.Get(PointsEndpoint, pointsQueryHandler(&s))
 		httpServer := http.Server{Addr: ":8080", Handler: r}
 		go runHTTPServer(&httpServer)
 
@@ -63,4 +64,9 @@ func writeSuccessResponse(w http.ResponseWriter, msg string) {
 	resultData, _ := json.Marshal(result)
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write(resultData)
+}
+
+func writeSuccessBinResponse(w http.ResponseWriter, data []byte) {
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(data)
 }
