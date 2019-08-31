@@ -16,7 +16,7 @@ func FeatureScoreKeepingContext(s *godog.Suite) {
 }
 
 func iAddPointsToUser(points int, user string) error {
-	eUrl := endPointUrl(webserver.PointsEndpoint)
+	eUrl := endpointUrl(webserver.PointsEndpoint)
 	sData := []byte(fmt.Sprintf(`{"user": "%s", "points": %v, "opType": "%s"}`, user, points, webserver.OperationAdd))
 	_, err := dataToServer(eUrl, sData)
 	if err != nil {
@@ -26,7 +26,7 @@ func iAddPointsToUser(points int, user string) error {
 }
 
 func iSubsPointsToUser(points int, user string) error {
-	eUrl := endPointUrl(webserver.PointsEndpoint)
+	eUrl := endpointUrl(webserver.PointsEndpoint)
 	sData := []byte(fmt.Sprintf(`{"user": "%s", "points": %v, "opType": "%s"}`, user, points, webserver.OperationSubs))
 	_, err := dataToServer(eUrl, sData)
 	if err != nil {
@@ -37,7 +37,7 @@ func iSubsPointsToUser(points int, user string) error {
 
 func hasNowPoints(user string, points int) error {
 
-	eUrl := endPointUrl(webserver.PointsEndpoint)
+	eUrl := endpointUrl(webserver.PointsEndpoint)
 	pUrl, err := url.Parse(eUrl)
 	if err != nil {
 		return err
