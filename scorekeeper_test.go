@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/DATA-DOG/godog"
 	"github.com/eloylp/scorekeeper-api/webserver"
-	url2 "net/url"
+	"net/url"
 )
 
 func FeatureScoreKeepingContext(s *godog.Suite) {
@@ -17,9 +17,9 @@ func FeatureScoreKeepingContext(s *godog.Suite) {
 }
 
 func iAddPointsToUser(points int, user string) error {
-	endPoint := url(webserver.PointsEndpoint)
+	eUrl := endPointUrl(webserver.PointsEndpoint)
 	sData := []byte(fmt.Sprintf(`{"user": "%s", "points": %v, "opType": "%s"}`, user, points, webserver.OperationAdd))
-	_, err := dataToServer(endPoint, sData)
+	_, err := dataToServer(eUrl, sData)
 	if err != nil {
 		return err
 	}
@@ -27,9 +27,9 @@ func iAddPointsToUser(points int, user string) error {
 }
 
 func iSubsPointsToUser(points int, user string) error {
-	endPoint := url(webserver.PointsEndpoint)
+	eUrl := endPointUrl(webserver.PointsEndpoint)
 	sData := []byte(fmt.Sprintf(`{"user": "%s", "points": %v, "opType": "%s"}`, user, points, webserver.OperationSubs))
-	_, err := dataToServer(endPoint, sData)
+	_, err := dataToServer(eUrl, sData)
 	if err != nil {
 		return err
 	}
@@ -38,8 +38,8 @@ func iSubsPointsToUser(points int, user string) error {
 
 func hasNowPoints(user string, points int) error {
 
-	endPoint := url(webserver.PointsEndpoint)
-	pUrl, err := url2.Parse(endPoint)
+	eUrl := endPointUrl(webserver.PointsEndpoint)
+	pUrl, err := url.Parse(eUrl)
 	if err != nil {
 		return err
 	}
@@ -74,9 +74,9 @@ func hasNowPoints(user string, points int) error {
 }
 
 func iCantMultiplyPoints() error {
-	url := url(webserver.PointsEndpoint)
+	eUrl := endPointUrl(webserver.PointsEndpoint)
 	sData := []byte(`{"user": "Bob", "points": 5, "opType": "MULTIPLY"}`)
-	body, err := dataToServer(url, sData)
+	body, err := dataToServer(eUrl, sData)
 	if err != nil {
 		return err
 	}

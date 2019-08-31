@@ -12,8 +12,8 @@ func FeaturePingContext(s *godog.Suite) {
 }
 
 func iCanPingTheScorekeeperService() error {
-	url := url(webserver.PingEndpoint)
-	body, err := dataFromServer(url)
+	eUrl := endPointUrl(webserver.PingEndpoint)
+	body, err := dataFromServer(eUrl)
 	if err != nil {
 		return err
 	}

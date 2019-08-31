@@ -90,6 +90,6 @@ func dataFromServer(url string) ([]byte, error) {
 	return body, nil
 }
 
-func url(path string) string {
+func endPointUrl(path string) string {
 	return fmt.Sprintf("http://localhost:8080%s", path)
 }
