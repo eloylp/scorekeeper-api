@@ -13,7 +13,6 @@ func FeatureScoreKeepingContext(s *godog.Suite) {
 	s.Step(`^I add (\d+) points to user "([^"]*)"$`, iAddPointsToUser)
 	s.Step(`^I subs (\d+) points to user "([^"]*)"$`, iSubsPointsToUser)
 	s.Step(`^"([^"]*)" has now (\d+) points$`, hasNowPoints)
-	s.Step(`^I cant multiply points$`, iCantMultiplyPoints)
 }
 
 func iAddPointsToUser(points int, user string) error {
@@ -69,20 +68,6 @@ func hasNowPoints(user string, points int) error {
 
 	if r.Points != points {
 		return fmt.Errorf(`expected response to be "%v", got: "%v"`, points, r.Points)
-	}
-	return nil
-}
-
-func iCantMultiplyPoints() error {
-	eUrl := endPointUrl(webserver.PointsEndpoint)
-	sData := []byte(`{"user": "Bob", "points": 5, "opType": "MULTIPLY"}`)
-	body, err := dataToServer(eUrl, sData)
-	if err != nil {
-		return err
-	}
-	expected := `{"success":false,"message":"Not a valid scorer operation"}`
-	if string(body) != expected {
-		return fmt.Errorf(`expected response to be "%s"", got: "%s"`, expected, string(body))
 	}
 	return nil
 }
