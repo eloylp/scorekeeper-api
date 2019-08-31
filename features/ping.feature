@@ -4,5 +4,5 @@ Feature: Ping the scorekeeper microservice
     I need to have a simple check that the microservice is running
 
     Scenario: Ping the scorekeeper microservice
-        Given that the scorekeeper service is running
-        Then I can ping the scorekeeper service
+      Given that the scorekeeper service is running
+      Then I can ping the scorekeeper service
