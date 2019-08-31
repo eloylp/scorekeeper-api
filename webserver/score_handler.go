@@ -42,10 +42,10 @@ func scoreOperationsHandler(scorer *scorekeeper.Scorer) http.HandlerFunc {
 			scorer.Subs(o.User, o.Points)
 			break
 		default:
-			writeBadRequestResponse(w, errors.New("Not a valid scorer operation"))
+			writeBadRequestResponse(w, errors.New("not a valid scorer operation"))
 			return
 		}
-		writeSuccessResponse(w, fmt.Sprintf("Total points for user %s are now %v", o.User, scorer.Get(o.User)))
+		writeSuccessResponse(w, fmt.Sprintf("total points for user %s are now %v", o.User, scorer.Get(o.User)))
 	}
 }
 
